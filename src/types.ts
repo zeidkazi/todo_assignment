@@ -2,7 +2,7 @@ export interface TodoType {
   id: number;
   title: string;
   description: string;
-  time: string;
+  time: Date;
 }
 
 export interface TodoListProps {
@@ -17,7 +17,7 @@ export interface TodoCardProps {
 export interface AddTodoType {
   title: string;
   description: string;
-  time: string;
+  time: Date;
 }
 
 export interface EditModalProps {

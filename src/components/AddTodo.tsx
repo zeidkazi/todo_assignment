@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const formSchema = yup.object().shape({
   title: yup.string().required("Title required"),
   description: yup.string().required("Description required"),
-  time: yup.string().required("Time required"),
+  time: yup.date().required("Time required"),
 });
 
 const AddTodo = () => {
@@ -43,6 +43,7 @@ const AddTodo = () => {
             <input
               type="text"
               id="title"
+              placeholder="Enter your Task"
               {...register("title")}
               className={`w-full outline-none border rounded p-xs ${
                 errors?.title
@@ -64,6 +65,7 @@ const AddTodo = () => {
             <input
               type="text"
               id="description"
+              placeholder="Describe your Task"
               {...register("description")}
               className={`w-full outline-none border rounded p-xs ${
                 errors?.description
@@ -87,6 +89,7 @@ const AddTodo = () => {
             <input
               type="text"
               id="time"
+              placeholder="Date for completion"
               {...register("time")}
               className={`w-full outline-none border rounded p-xs ${
                 errors?.time

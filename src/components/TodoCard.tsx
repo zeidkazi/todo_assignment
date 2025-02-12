@@ -18,7 +18,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
 
   return (
     <div
-      className="bg-primary border border-primary flex flex-col w-full max-w-max rounded-t-lg"
+      className="bg-primary border border-primary flex flex-col w-full max-w-max rounded-t-lg shadow"
       key={id}
     >
       <div className="p-xs flex flex-col gap-sm">

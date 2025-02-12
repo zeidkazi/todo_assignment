@@ -2,8 +2,8 @@ import { useForm } from "react-hook-form";
 import { EditModalProps } from "../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "./AddTodo";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { deleteTodo, editTodo } from "../api/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { editTodo } from "../api/api";
 
 const EditModal = ({ setClose, todo }: EditModalProps) => {
   const {
@@ -27,12 +27,15 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
   return (
     <div
       onClick={() => setClose(false)}
-      className="fixed  inset-0 flex items-center justify-center bg-white/60"
+      className="fixed  inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="min-w-[500px] min-h-[100px] bg-primary rounded p-base"
+        className="min-w-[500px] min-h-[100px] bg-white rounded-lg p-base shadow-lg flex flex-col items-center gap-base"
       >
+        <p className="text-xlarge font-bold">
+            Edit ToDo
+        </p>
         <form
           onSubmit={handleSubmit((data) => mutate({ id: todo.id, todo: data }))}
           className="w-full max-w-xl flex flex-col items-start gap-xs"
@@ -88,7 +91,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
           <div className="w-full flex items-center justify-end pt-sm">
             <button
               type="submit"
-              className=" px-sm py-xs rounded-lg bg-background active:scale-[0.9] transition-all"
+              className=" px-sm py-xs rounded-lg bg border border-background hover:shadow transition "
             >
               Edit ToDo
             </button>

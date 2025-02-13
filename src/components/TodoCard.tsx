@@ -34,7 +34,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
         <p className="italic">{formatDate(todo.time)}</p>
       </div>
       <div className="bg-white p-xs flex items-center justify-end gap-base">
-        <button className="">
+        <button className="cursor-pointer hover:scale-[1.1] transition">
           <Edit onClick={() => setIsEditActive(true)} strokeWidth={1.5} />
         </button>
         <button

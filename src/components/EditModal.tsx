@@ -35,9 +35,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
         onClick={(e) => e.stopPropagation()}
         className="min-w-[500px] min-h-[100px] bg-white rounded-lg p-base shadow-lg flex flex-col items-center gap-base"
       >
-        <p className="text-xlarge font-bold">
-            Edit ToDo
-        </p>
+        <p className="text-xlarge font-bold">Edit ToDo</p>
         <form
           onSubmit={handleSubmit((data) => mutate({ id: todo.id, todo: data }))}
           className="w-full max-w-xl flex flex-col items-start gap-xs"
@@ -87,9 +85,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
                   selected={field.value}
                   onChange={(date) => field.onChange(date)}
                   className={`w-full p-xs border rounded-md outline-none ${
-                    errors.time
-                      ? "border-red-500"
-                      : "focus:border-background"
+                    errors.time ? "border-red-500" : "focus:border-background"
                   }`}
                   placeholderText="Enter Task Date"
                   dateFormat="dd MMM yyyy"

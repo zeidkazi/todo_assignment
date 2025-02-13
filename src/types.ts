@@ -7,6 +7,7 @@ export interface TodoType {
 
 export interface TodoListProps {
   data: TodoType[];
+  isLoading: boolean;
 }
 
 export interface TodoCardProps {
@@ -21,11 +22,11 @@ export interface AddTodoType {
 }
 
 export interface EditModalProps {
-    setClose :React.Dispatch<React.SetStateAction<boolean>>,
-    todo: TodoType
+  setClose: React.Dispatch<React.SetStateAction<boolean>>;
+  todo: TodoType;
 }
 
 export interface EditTodoType {
-    id:number
-    todo: AddTodoType
+  id: number;
+  todo: AddTodoType;
 }

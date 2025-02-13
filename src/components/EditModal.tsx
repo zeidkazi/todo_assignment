@@ -1,14 +1,16 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { EditModalProps } from "../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formSchema } from "./AddTodo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editTodo } from "../api/api";
+import DatePicker from "react-datepicker";
 
 const EditModal = ({ setClose, todo }: EditModalProps) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(formSchema),
@@ -77,15 +79,23 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
             <label htmlFor="title" className="w-32 text-base md:text-large">
               Time
             </label>
-            <input
-              type="text"
-              id="time"
-              {...register("time")}
-              className={`grow outline-none border rounded p-xs ${
-                errors?.time
-                  ? "focus:border-red-500"
-                  : "focus:border-background"
-              }`}
+            <Controller
+              name="time"
+              control={control}
+              render={({ field }) => (
+                <DatePicker
+                  selected={field.value}
+                  onChange={(date) => field.onChange(date)}
+                  className={`w-full p-xs border rounded-md outline-none ${
+                    errors.time
+                      ? "border-red-500"
+                      : "focus:border-background"
+                  }`}
+                  placeholderText="Enter Task Date"
+                  dateFormat="dd MMM yyyy"
+                  minDate={new Date()}
+                />
+              )}
             />
           </div>
           <div className="w-full flex items-center justify-end pt-sm">

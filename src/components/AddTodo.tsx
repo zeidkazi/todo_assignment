@@ -1,13 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { addTodo } from "../api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const formSchema = yup.object().shape({
   title: yup.string().required("Title required"),
   description: yup.string().required("Description required"),
-  time: yup.date().required("Time required"),
+  time: yup.date().nullable().required("Time required"),
 });
 
 const AddTodo = () => {
@@ -15,6 +17,7 @@ const AddTodo = () => {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(formSchema) });
 
@@ -47,7 +50,7 @@ const AddTodo = () => {
               {...register("title")}
               className={`w-full outline-none border rounded p-xs ${
                 errors?.title
-                  ? "focus:border-red-500"
+                  ? "border-red-500"
                   : "focus:border-background"
               }`}
             />
@@ -69,7 +72,7 @@ const AddTodo = () => {
               {...register("description")}
               className={`w-full outline-none border rounded p-xs ${
                 errors?.description
-                  ? "focus:border-red-500"
+                  ? "border-red-500"
                   : "focus:border-background"
               }`}
             />
@@ -86,16 +89,23 @@ const AddTodo = () => {
             Time
           </label>
           <div className="grow">
-            <input
-              type="text"
-              id="time"
-              placeholder="Date for completion"
-              {...register("time")}
-              className={`w-full outline-none border rounded p-xs ${
-                errors?.time
-                  ? "focus:border-red-500"
-                  : "focus:border-background"
-              }`}
+            <Controller
+              name="time"
+              control={control}
+              render={({ field }) => (
+                <DatePicker
+                  selected={field.value}
+                  onChange={(date) => field.onChange(date)}
+                  className={`w-full p-xs border rounded-md outline-none ${
+                    errors.time
+                      ? "border-red-500"
+                      : "focus:border-background"
+                  }`}
+                  placeholderText="Enter Task Date"
+                  dateFormat="dd MMM yyyy"
+                  minDate={new Date()}
+                />
+              )}
             />
             {errors && errors.time ? (
               <p className="text-xs text-red-500">{errors.time?.message}</p>

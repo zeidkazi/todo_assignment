@@ -14,6 +14,7 @@ const Todo = () => {
   } = useQuery({
     queryKey: ["todo"],
     queryFn: fetchTodo,
+   // staleTime: 1000*10  //cache value to not re fetch 
   });
 
   console.log(fetchTodoData, isError, error, isLoading);
@@ -22,7 +23,7 @@ const Todo = () => {
     <div className="bg-background w-full h-screen max-h-screen overflow-auto flex flex-col items-center p-base">
       <div className="w-full max-w-3xl flex flex-col items-center gap-4 bg-white rounded-xl py-xs px-sm shadow ">
         <AddTodo />
-        <TodoList data={fetchTodoData} />
+        <TodoList data={fetchTodoData} isLoading={isLoading}/>
       </div>
     </div>
   );

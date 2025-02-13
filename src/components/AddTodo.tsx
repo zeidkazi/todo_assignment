@@ -32,14 +32,14 @@ const AddTodo = () => {
   });
 
   return (
-    <div className="w-full flex flex-col items-center gap-xs border-b border-background pb-base">
+    <div className="w-full flex flex-col items-center gap-xs border-b border-background pb-base bg-white rounded-xl">
       <div className="text-xlarge font-bold pb-base">Todo</div>
       <form
         onSubmit={handleSubmit((data) => mutate(data))}
         className="w-full max-w-xl flex flex-col items-start gap-xs"
       >
         <div className=" w-full flex items-center gap-base">
-          <label htmlFor="title" className="w-32 text-base md:text-large">
+          <label htmlFor="title" className="w-32 text-base font-semibold">
             Title
           </label>
           <div className="grow">
@@ -61,7 +61,7 @@ const AddTodo = () => {
         </div>
 
         <div className=" w-full flex items-center gap-base">
-          <label htmlFor="description" className="w-32 text-base md:text-large">
+          <label htmlFor="description" className="w-32 text-base font-semibold">
             Description
           </label>
           <div className="grow">
@@ -85,7 +85,7 @@ const AddTodo = () => {
         </div>
 
         <div className=" w-full flex items-center gap-base">
-          <label htmlFor="time" className="w-32 text-base md:text-large">
+          <label htmlFor="time" className="w-32 text-base font-semibold">
             Time
           </label>
           <div className="grow">
@@ -116,7 +116,7 @@ const AddTodo = () => {
         <div className="w-full flex items-center justify-end pt-base">
           <button
             type="submit"
-            className=" px-sm py-xs rounded-lg border border-background hover:bg-background hover:text-white active:scale-[0.9] transition-all"
+            className="w-full px-sm py-sm rounded-lg border bg-black text-white text-sm transition-all cursor-pointer hover:bg-black/80"
           >
             Add ToDo
           </button>

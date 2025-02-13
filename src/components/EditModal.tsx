@@ -41,7 +41,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
           className="w-full max-w-xl flex flex-col items-start gap-xs"
         >
           <div className=" w-full flex items-center gap-base">
-            <label htmlFor="title" className="w-32 text-base md:text-large">
+            <label htmlFor="title" className="w-32 text-base font-semibold">
               Title
             </label>
             <input
@@ -58,7 +58,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
           <div className=" w-full flex items-center gap-base">
             <label
               htmlFor="description"
-              className="w-32 text-base md:text-large"
+             className="w-32 text-base font-semibold"
             >
               Description
             </label>
@@ -74,7 +74,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
             />
           </div>
           <div className=" w-full flex items-center gap-base">
-            <label htmlFor="title" className="w-32 text-base md:text-large">
+            <label htmlFor="title" className="w-32 text-base font-semibold">
               Time
             </label>
             <Controller
@@ -97,7 +97,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
           <div className="w-full flex items-center justify-end pt-sm">
             <button
               type="submit"
-              className=" px-sm py-xs rounded-lg bg border border-background hover:shadow transition "
+              className="w-full px-sm py-sm rounded-lg border bg-black text-white text-sm transition-all cursor-pointer hover:bg-black/80"
             >
               Edit ToDo
             </button>

@@ -3,13 +3,19 @@ import Todo from "./pages/Todo";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const App = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 1000 * 10,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
       <Todo />
       <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>  
+    </QueryClientProvider>
   );
 };
 

@@ -5,6 +5,7 @@ import { formSchema } from "./AddTodo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editTodo } from "../api/api";
 import DatePicker from "react-datepicker";
+import toast from "react-hot-toast";
 
 const EditModal = ({ setClose, todo }: EditModalProps) => {
   const {
@@ -22,7 +23,9 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
   const { mutate } = useMutation({
     mutationFn: editTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["todo"] }), setClose(false);
+      queryClient.invalidateQueries({ queryKey: ["todo"] });
+      setClose(false);
+      toast.success("Edited ToDo");
     },
   });
 
@@ -58,7 +61,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
           <div className=" w-full flex items-center gap-base">
             <label
               htmlFor="description"
-             className="w-32 text-base font-semibold"
+              className="w-32 text-base font-semibold"
             >
               Description
             </label>

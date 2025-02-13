@@ -5,6 +5,7 @@ import { addTodo } from "../api/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import toast from "react-hot-toast";
 
 export const formSchema = yup.object().shape({
   title: yup.string().required("Title required"),
@@ -28,6 +29,7 @@ const AddTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
       reset();
+      toast.success("Added ToDo")
     },
   });
 

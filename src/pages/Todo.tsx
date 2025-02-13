@@ -23,7 +23,7 @@ const Todo = () => {
 
   return (
     <div className="bg-background w-full h-dvh max-h-screen overflow-auto flex flex-col items-center justify-center p-base">
-      <div className="w-full max-w-3xl h-full min-h-fit flex flex-col items-center gap-xlarge   ">
+      <div className="w-full max-w-3xl h-full min-h-fit flex flex-col items-center gap-base">
         <AddTodo />
         <div className=" bg-white rounded-xl w-full h-full flex flex-col items-center py-base">
           <TodoList data={fetchTodoData} isLoading={isLoading} />

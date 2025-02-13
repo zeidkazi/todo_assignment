@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo } from "../api/api";
 import EditModal from "./EditModal";
 import { format } from "date-fns";
+import toast from "react-hot-toast";
 
 const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
@@ -14,14 +15,13 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
     mutationFn: deleteTodo,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
+      toast.success("Deleted Todo");
     },
   });
 
-  const formatDate = (date:Date)=>{
-    return format(date,"dd MMMM yyyy")
-  }
-
-
+  const formatDate = (date: Date) => {
+    return format(date, "dd MMMM yyyy");
+  };
 
   return (
     <div

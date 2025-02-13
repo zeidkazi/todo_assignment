@@ -4,6 +4,7 @@ import { Edit, Trash } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo } from "../api/api";
 import EditModal from "./EditModal";
+import { format } from "date-fns";
 
 const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
@@ -16,6 +17,12 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
     },
   });
 
+  const formatDate = (date:Date)=>{
+    return format(date,"dd MMMM yyyy")
+  }
+
+
+
   return (
     <div
       className="bg-primary border border-primary flex flex-col w-full max-w-max rounded-t-lg shadow"
@@ -24,7 +31,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
       <div className="p-xs flex flex-col gap-sm">
         <p className=" text-large md:text-xlarge font-bold">{todo.title}</p>
         <p className="">{todo.description}</p>
-        <p className="italic">{todo.time}</p>
+        <p className="italic">{formatDate(todo.time)}</p>
       </div>
       <div className="bg-white p-xs flex items-center justify-end gap-base">
         <button className="">

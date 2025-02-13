@@ -5,8 +5,17 @@ export interface TodoType {
   time: Date;
 }
 
-export interface TodoListProps {
+export interface DataType {
+  first?: number;
+  items?: number;
+  last?: number;
+  next?: number | null;
+  prev?: number | null;
   data: TodoType[];
+}
+
+export interface TodoListProps {
+  data: DataType;
   isLoading: boolean;
 }
 
@@ -29,4 +38,14 @@ export interface EditModalProps {
 export interface EditTodoType {
   id: number;
   todo: AddTodoType;
+}
+
+export interface FetchTodoType {
+  page?: number;
+}
+
+export interface PaginationType {
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  data: DataType;
 }

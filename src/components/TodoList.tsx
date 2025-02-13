@@ -4,16 +4,16 @@ import TodoCard from "./TodoCard";
 
 const TodoList: React.FC<TodoListProps> = ({ data, isLoading }) => {
   return (
-    <div className="w-full h-fit flex items-start justify-center flex-wrap gap-4 py-base">
+    <div className=" grow w-full h-fit flex items-start justify-center flex-wrap gap-4 py-xs">
       {isLoading ? (
         <>
-          {new Array(4).fill("").map(() => (
+          {new Array(6).fill("").map(() => (
             <LoaderSkeleton />
           ))}
         </>
       ) : (
         data &&
-        data?.map((todo: TodoType, id: number) => (
+        data?.data?.map((todo: TodoType, id: number) => (
           <TodoCard todo={todo} id={id} />
         ))
       )}

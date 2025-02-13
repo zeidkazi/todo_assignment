@@ -32,7 +32,7 @@ const AddTodo = () => {
   });
 
   return (
-    <div className="w-full flex flex-col items-center gap-xs border-b pb-base">
+    <div className="w-full flex flex-col items-center gap-xs border-b border-background pb-base">
       <div className="text-xlarge font-bold pb-base">Todo</div>
       <form
         onSubmit={handleSubmit((data) => mutate(data))}

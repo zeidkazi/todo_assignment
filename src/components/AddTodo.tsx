@@ -62,8 +62,8 @@ const AddTodo = () => {
               id="title"
               placeholder="Enter your Task"
               {...register("title")}
-              className={`w-full outline-none border rounded p-xs ${
-                errors?.title ? "border-red-500" : "focus:border-background"
+              className={`w-full border rounded p-xs ${
+                errors?.title ? "border-red-500" : "focus:outline-purple-500"
               }`}
             />
             {errors && errors.title ? (
@@ -82,10 +82,10 @@ const AddTodo = () => {
               id="description"
               placeholder="Describe your Task"
               {...register("description")}
-              className={`w-full outline-none border rounded p-xs ${
+              className={`w-full border rounded p-xs ${
                 errors?.description
                   ? "border-red-500"
-                  : "focus:border-background"
+                  : "focus:outline-purple-500"
               }`}
             />
             {errors && errors.description ? (
@@ -108,12 +108,11 @@ const AddTodo = () => {
                 <DatePicker
                   selected={field.value}
                   onChange={(date) => field.onChange(date)}
-                  className={`w-full p-xs border rounded-md outline-none ${
-                    errors.time ? "border-red-500" : "focus:border-background"
+                  className={`w-full p-xs border rounded-md  ${
+                    errors.time ? "border-red-500" : "focus:outline-purple-500"
                   }`}
                   placeholderText="Enter Task Date"
                   dateFormat="dd MMM yyyy"
-                  // minDate={new Date()}
                 />
               )}
             />

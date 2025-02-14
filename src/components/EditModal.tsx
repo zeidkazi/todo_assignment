@@ -39,8 +39,11 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
         onClick={(e) => e.stopPropagation()}
         className="relative min-w-[500px] min-h-[100px] bg-white rounded-lg p-base shadow-lg flex flex-col items-center gap-base"
       >
-        <button onClick={()=>setClose(false)} className=" absolute size-7 bg-black text-white hover:bg-black/80 transition rounded-full right-1 top-1 cursor-pointer flex items-center justify-center">
-          <X strokeWidth={1.5}/>
+        <button
+          onClick={() => setClose(false)}
+          className=" absolute size-7 bg-black text-white hover:bg-black/80 transition rounded-full right-1 top-1 cursor-pointer flex items-center justify-center"
+        >
+          <X strokeWidth={1.5} />
         </button>
 
         <p className="text-xlarge font-bold">Edit ToDo</p>
@@ -56,10 +59,10 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
               type="text"
               id="title"
               {...register("title")}
-              className={`grow outline-none border rounded p-xs ${
+              className={`grow  border rounded p-xs ${
                 errors?.title
                   ? "focus:border-red-500"
-                  : "focus:border-background"
+                  : "focus:outline-purple-500"
               }`}
             />
           </div>
@@ -74,10 +77,10 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
               type="text"
               id="description"
               {...register("description")}
-              className={`grow outline-none border rounded p-xs ${
+              className={`grow  border rounded p-xs ${
                 errors?.description
                   ? "focus:border-red-500"
-                  : "focus:border-background"
+                  : "focus:outline-purple-500"
               }`}
             />
           </div>
@@ -92,8 +95,8 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
                 <DatePicker
                   selected={field.value}
                   onChange={(date) => field.onChange(date)}
-                  className={`w-full p-xs border rounded-md outline-none ${
-                    errors.time ? "border-red-500" : "focus:border-background"
+                  className={`w-full p-xs border rounded-md  ${
+                    errors.time ? "border-red-500" : "focus:outline-purple-500"
                   }`}
                   placeholderText="Enter Task Date"
                   dateFormat="dd MMM yyyy"

@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editTodo } from "../api/api";
 import DatePicker from "react-datepicker";
 import toast from "react-hot-toast";
+import { X } from "lucide-react";
 
 const EditModal = ({ setClose, todo }: EditModalProps) => {
   const {
@@ -32,12 +33,16 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
   return (
     <div
       onClick={() => setClose(false)}
-      className="fixed  inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs"
+      className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-xs"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="min-w-[500px] min-h-[100px] bg-white rounded-lg p-base shadow-lg flex flex-col items-center gap-base"
+        className="relative min-w-[500px] min-h-[100px] bg-white rounded-lg p-base shadow-lg flex flex-col items-center gap-base"
       >
+        <button onClick={()=>setClose(false)} className=" absolute size-7 bg-black text-white hover:bg-black/80 transition rounded-full right-1 top-1 cursor-pointer flex items-center justify-center">
+          <X strokeWidth={1.5}/>
+        </button>
+
         <p className="text-xlarge font-bold">Edit ToDo</p>
         <form
           onSubmit={handleSubmit((data) => mutate({ id: todo.id, todo: data }))}
@@ -92,7 +97,6 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
                   }`}
                   placeholderText="Enter Task Date"
                   dateFormat="dd MMM yyyy"
-                  minDate={new Date()}
                 />
               )}
             />

@@ -10,7 +10,19 @@ import toast from "react-hot-toast";
 export const formSchema = yup.object().shape({
   title: yup.string().required("Title required"),
   description: yup.string().required("Description required"),
-  time: yup.date().nullable().required("Time required"),
+  time: yup
+    .date()
+    .typeError("Invalid date")
+    .required()
+    .test("test-future-date", "Enter today or future dates", (value) => {
+      if (!value) return false;
+      return value.getTime() >= new Date().setHours(0, 0, 0, 0);
+      // time: yup.date().nullable().required("Time required"),
+      // console.log("date validations",value, "date()",new Date(), "get time", new Date().getTime(), "setHours", new Date().setHours(0,0,0,0) )
+      // .min(new Date().setHours(0,0,0,0), "Enter today or future dates")
+      // .test("test-date", "enter valid date", (value) => value instanceof Date)
+      //.setHour converts to numeric value so use getTime() to compare , setHours to 0 to be able to select time throughout the day
+    }),
 });
 
 const AddTodo = () => {
@@ -29,7 +41,7 @@ const AddTodo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
       reset();
-      toast.success("Added ToDo")
+      toast.success("Added ToDo");
     },
   });
 
@@ -51,9 +63,7 @@ const AddTodo = () => {
               placeholder="Enter your Task"
               {...register("title")}
               className={`w-full outline-none border rounded p-xs ${
-                errors?.title
-                  ? "border-red-500"
-                  : "focus:border-background"
+                errors?.title ? "border-red-500" : "focus:border-background"
               }`}
             />
             {errors && errors.title ? (
@@ -99,13 +109,11 @@ const AddTodo = () => {
                   selected={field.value}
                   onChange={(date) => field.onChange(date)}
                   className={`w-full p-xs border rounded-md outline-none ${
-                    errors.time
-                      ? "border-red-500"
-                      : "focus:border-background"
+                    errors.time ? "border-red-500" : "focus:border-background"
                   }`}
                   placeholderText="Enter Task Date"
                   dateFormat="dd MMM yyyy"
-                  minDate={new Date()}
+                  // minDate={new Date()}
                 />
               )}
             />

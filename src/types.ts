@@ -11,6 +11,7 @@ export interface DataType {
   last?: number;
   next?: number | null;
   prev?: number | null;
+  pages: number;
   data: TodoType[];
 }
 
@@ -45,7 +46,10 @@ export interface FetchTodoType {
 }
 
 export interface PaginationType {
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
   data: DataType;
 }
+
+export type ContextType = {
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+};

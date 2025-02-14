@@ -11,7 +11,7 @@ export const addTodo = async (data: AddTodoType) => {
   return resData;
 };
 
-export const fetchTodo = async (page:FetchTodoType) => {
+export const fetchTodo = async (page:number ) => {
   const response = await fetch(`http://localhost:3000/todos?${page ? `_page=${page}&_per_page=6`: ``}`);
   const data = await response.json();
   return data;

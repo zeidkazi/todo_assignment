@@ -2,11 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import AddTodo from "../components/AddTodo";
 import TodoList from "../components/TodoList";
 import { fetchTodo } from "../api/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Pagination from "../components/Pagination";
+import { MyContext } from "../context/Context";
 
 const Todo = () => {
-  const [page, setPage] = useState(1);
+  const { page, setPage } = useContext(MyContext);
 
   const {
     data: fetchTodoData,
@@ -27,7 +28,7 @@ const Todo = () => {
         <AddTodo />
         <div className=" bg-white rounded-xl w-full h-full flex flex-col items-center py-base">
           <TodoList data={fetchTodoData} isLoading={isLoading} />
-          <Pagination page={page} setPage={setPage} data={fetchTodoData} />
+          <Pagination data={fetchTodoData} />
         </div>
       </div>
     </div>

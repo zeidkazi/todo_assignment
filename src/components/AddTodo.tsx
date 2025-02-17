@@ -6,6 +6,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import { DataType } from "../types";
+import { useContext } from "react";
+import { MyContext } from "../context/Context";
 
 export const formSchema = yup.object().shape({
   title: yup.string().required("Title required"),
@@ -16,16 +19,18 @@ export const formSchema = yup.object().shape({
     .required()
     .test("test-future-date", "Enter today or future dates", (value) => {
       if (!value) return false;
+      //.setHour converts to numeric value so use getTime() to compare , setHours to 0 to be able to select time throughout the day
+      // console.log("date validations",value, "date()",new Date(), "get time", new Date().getTime(), "setHours", new Date().setHours(0,0,0,0) )
       return value.getTime() >= new Date().setHours(0, 0, 0, 0);
       // time: yup.date().nullable().required("Time required"),
-      // console.log("date validations",value, "date()",new Date(), "get time", new Date().getTime(), "setHours", new Date().setHours(0,0,0,0) )
       // .min(new Date().setHours(0,0,0,0), "Enter today or future dates")
       // .test("test-date", "enter valid date", (value) => value instanceof Date)
-      //.setHour converts to numeric value so use getTime() to compare , setHours to 0 to be able to select time throughout the day
     }),
 });
 
 const AddTodo = () => {
+  const { page: currentPage } = useContext(MyContext);
+
   const {
     register,
     handleSubmit,
@@ -36,12 +41,55 @@ const AddTodo = () => {
 
   const queryClient = useQueryClient();
 
+  // const { mutate } = useMutation({
+  //   mutationFn: addTodo,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["todo"] });
+  //     reset();
+  //     toast.success("Added ToDo");
+  //   },
+  // });
+
   const { mutate } = useMutation({
     mutationFn: addTodo,
+    onMutate: async (newTodo) => {
+      console.log("new todo", newTodo)
+
+      // Cancel current queries for the todos list
+      await queryClient.cancelQueries({ queryKey: ["todo"] });
+
+      // Saves the previous todos state before updating
+      const prevTodos = queryClient.getQueryData<DataType>([
+        "todo",
+        { page: currentPage },
+      ])
+
+      if(!prevTodos) return
+
+      // Add optimistic only if todo gets added to current page
+      if(prevTodos?.data.length < 6){
+
+        queryClient.setQueryData(['todo',{page: currentPage}], (old:DataType)=>{
+          return{ ...old,
+            data:  [...old?.data, {...newTodo, id: new Date()}]
+          }
+        })
+      }
+
+      // Return context with previous todos
+      return { prevTodos };
+    },
+
+    onError: (errors, variables, context) => {
+      if (context?.prevTodos) {
+        queryClient.setQueryData(['todo',{page:currentPage}], context.prevTodos)
+      }
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
       reset();
-      toast.success("Added ToDo");
+      
     },
   });
 

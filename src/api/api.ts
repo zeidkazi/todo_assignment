@@ -9,6 +9,7 @@ export const addTodo = async (data: AddTodoType) => {
   });
 
   const resData = await response.json();
+  toast.success("Added ToDo");
   return resData;
 };
 

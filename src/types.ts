@@ -6,11 +6,11 @@ export interface TodoType {
 }
 
 export interface DataType {
-  first?: number;
-  items?: number;
-  last?: number;
-  next?: number | null;
-  prev?: number | null;
+  first: number;
+  items: number;
+  last: number;
+  next: number | null;
+  prev: number | null;
   pages: number;
   data: TodoType[];
 }

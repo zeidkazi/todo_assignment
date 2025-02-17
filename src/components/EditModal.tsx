@@ -47,6 +47,9 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
           };
         }
       );
+
+      setClose(false);
+      
       return { prevTodos };
     },
 
@@ -60,7 +63,7 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
-      setClose(false);
+     
     },
   });
 

@@ -23,7 +23,7 @@ const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
         "todo",
         { page: currentPage },
       ]);
-      console.log("delete todo prev state",prevTodo)
+      // console.log("delete todo prev state",prevTodo)
 
       queryClient.setQueryData(
         ["todo", { page: currentPage }],

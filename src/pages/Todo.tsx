@@ -20,7 +20,6 @@ const Todo = () => {
     // staleTime: 1000*10  //cache value to not re fetch
   });
 
-  console.log(fetchTodoData, isError, error, isLoading);
 
   return (
     <div className="bg-background w-full h-dvh max-h-screen overflow-auto flex flex-col items-center justify-center p-base">

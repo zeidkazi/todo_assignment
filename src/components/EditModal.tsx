@@ -5,7 +5,6 @@ import { formSchema } from "./AddTodo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { editTodo } from "../api/api";
 import DatePicker from "react-datepicker";
-import toast from "react-hot-toast";
 import { X } from "lucide-react";
 import { useContext } from "react";
 import { MyContext } from "../context/Context";
@@ -62,7 +61,6 @@ const EditModal = ({ setClose, todo }: EditModalProps) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
       setClose(false);
-      toast.success("Edited ToDo");
     },
   });
 

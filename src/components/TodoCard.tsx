@@ -1,21 +1,55 @@
-import React, { useState } from "react";
-import { TodoCardProps } from "../types";
+import React, { useContext, useState } from "react";
+import { DataType, TodoCardProps } from "../types";
 import { Edit, Trash } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTodo } from "../api/api";
 import EditModal from "./EditModal";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import { MyContext } from "../context/Context";
 
 const TodoCard: React.FC<TodoCardProps> = ({ todo, id }) => {
+  const { page: currentPage } = useContext(MyContext);
   const [isEditActive, setIsEditActive] = useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
     mutationFn: deleteTodo,
+
+    onMutate: async (id: number) => {
+      await queryClient.cancelQueries({ queryKey: ["todos"] });
+
+      const prevTodo = queryClient.getQueryData<DataType>([
+        "todo",
+        { page: currentPage },
+      ]);
+      console.log("delete todo prev state",prevTodo)
+
+      queryClient.setQueryData(
+        ["todo", { page: currentPage }],
+        (old: DataType) => {
+          return {
+            ...old,
+            data: old?.data.filter((todo) => todo.id !== id),
+          };
+        }
+      );
+
+      return { prevTodo };
+    },
+
+    onError: (errors, variables, context)=>{
+      if(context?.prevTodo){
+        queryClient.setQueryData(['todo',{page:currentPage}], context.prevTodo)
+      };
+      toast.error("Failed to Delete Todo")
+
+
+    },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todo"] });
-      toast.success("Deleted Todo");
+    
     },
   });
 
